@@ -153,7 +153,9 @@ static xmlNodePtr _XMLChildWithName(xmlNodePtr child, const xmlChar* name) {
         NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:basePath];
         NSString* path;
         while ((path = [enumerator nextObject])) {
-          _AddPropertyResponse([basePath stringByAppendingPathComponent:path], [resourcePath stringByAppendingString:path], properties, xmlString);
+            if (![basePath hasPrefix:@"."]) {
+                _AddPropertyResponse([basePath stringByAppendingPathComponent:path], [resourcePath stringByAppendingString:path], properties, xmlString);
+            }
           [enumerator skipDescendents];
         }
       }
